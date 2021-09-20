@@ -1,85 +1,83 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Api
+public class Temp
 {
-
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
-    public class Main
+    public Temp()
     {
-        public double temp { get; set; }
-        public double feels_like { get; set; }
-        public double temp_min { get; set; }
-        public double temp_max { get; set; }
-        public int pressure { get; set; }
-        public int sea_level { get; set; }
-        public int grnd_level { get; set; }
-        public int humidity { get; set; }
-        public int temp_kf { get; set; }
     }
 
-    public class Weather
+    public double day { get; set; }
+    
+    public double min { get; set; }
+
+    public double max { get; set; }
+    [JsonProperty("Night")]
+    public double night { get; set; }
+
+    public double eve { get; set; }
+    public double morn { get; set; }
+}
+
+public class FeelsLike
+{
+    public FeelsLike( )
     {
-        public int id { get; set; }
-        public string main { get; set; }
-        public string description { get; set; }
-        public string icon { get; set; }
     }
 
-    public class Clouds
+    public double day { get; set; }
+    [JsonProperty("Night")]
+    public double night { get; set; }
+    public double eve { get; set; }
+    public double morn { get; set; }
+}
+
+public class Weather
+{
+    public Weather()
     {
-        public int all { get; set; }
     }
 
-    public class Wind
-    {
-        public double speed { get; set; }
-        public int deg { get; set; }
-        public double gust { get; set; }
-    }
+    public int id { get; set; }
+    public string main { get; set; }
+    public string description { get; set; }
+    public string icon { get; set; }
+}
 
-    public class Sys
+public class Daily  
+{
+    public Daily()
     {
-        public string pod { get; set; }
     }
+    [JsonProperty("dt")]
+    public int Time { get; set; }
+    [JsonProperty("sunrise")]
+    public int Sunrise { get; set; }
+    [JsonProperty("sunset")]
+    public int Sunset { get; set; }
+    public int moonrise { get; set; }
+    public int moonset { get; set; }
+    public double moon_phase { get; set; }
+    public Temp temp { get; set; }
+    public FeelsLike feels_like { get; set; }
+    public int pressure { get; set; }
+    public int humidity { get; set; }
+    public double dew_point { get; set; }
+    public double wind_speed { get; set; }
+    public int wind_deg { get; set; }
+    public double wind_gust { get; set; }
+    public List<Weather> weather { get; set; }
+    public int clouds { get; set; }
+    public double pop { get; set; }
+    public double rain { get; set; }
+    public double uvi { get; set; }
+}
 
-    public class List
-    {
-        public int dt { get; set; }
-        public Main main { get; set; }
-        public List<Weather> weather { get; set; }
-        public Clouds clouds { get; set; }
-        public Wind wind { get; set; }
-        public int visibility { get; set; }
-        public double pop { get; set; }
-        public Sys sys { get; set; }
-        public string dt_txt { get; set; }
-    }
-
-    public class Coord
-    {
-        public double lat { get; set; }
-        public double lon { get; set; }
-    }
-
-    public class City
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public Coord coord { get; set; }
-        public string country { get; set; }
-        public int timezone { get; set; }
-        public int sunrise { get; set; }
-        public int sunset { get; set; }
-    }
-
-    public class Root
-    {
-        public string cod { get; set; }
-        public double message { get; set; }
-        public int cnt { get; set; }
-        public List<List> list { get; set; }
-        public City city { get; set; }
-    }
+public class WeatherData
+{
+    public double lat { get; set; }
+    public double lon { get; set; }
+    public string timezone { get; set; }
+    public int timezone_offset { get; set; }
+    public List<Daily> daily { get; set; }
 }
